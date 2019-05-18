@@ -1,0 +1,142 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import "~gijgo/css/gijgo.min.css";
+
+#book-society-navbar {
+    background-color: #0db7a1 !important;
+    .form-inline {
+        flex-grow: 1;
+
+        .input-group {
+            margin-bottom: 0 !important;
+            flex-grow: 1;
+        }
+    }
+
+    .navbar-brand {
+        color: #fff !important;
+    }
+
+    .form-control {
+        background: #309487 !important;
+        border: none;
+        color: #fff !important;
+        outline: none;
+        box-shadow: none !important;
+    }
+
+    .form-control::placeholder {
+        color: #eee;
+    }
+
+    .search-scope {
+        border-radius: 0.25rem 0 0 0.25rem;
+        border: none;
+    }
+
+    button {
+        border: none;
+        background-color: #309487 !important;
+
+        svg {
+            height: 18px;
+            color: #fff;
+        }
+
+        &:hover {
+            background-color: darken($color: #309487, $amount: 5) !important;
+        }
+    }
+}
+
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.books__item-cover img {
+    max-width: 230px;
+    max-height: 280px;
+}
+
+.books__item {
+    margin: 3em 1.2em;
+    max-width: 200px;
+}
+
+.books__item-cover {
+    display: inline-block;
+    box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
+    transition: box-shadow 0.5s;
+    margin-bottom: 1.5em;
+}
+
+a.books__item-cover:hover {
+    box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.books__item-title {
+    font: 20px/1.33 "Nunito";
+}
+
+.author-result {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.author-card {
+    margin: 2em 1.5em;
+    background: #fff;
+    padding: 1em;
+    border-radius: 3px;
+    min-width: 200px;
+    box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
+    transition: box-shadow 0.5s;
+}
+
+.author-card:hover {
+    box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.add-book-action {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 1.1rem;
+    padding: 0 5px;
+    color: #3a887e;
+    position: relative;
+    transition: color 0.5s;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &:after {
+        content: "+";
+        display: inline-block;
+        border-radius: 50%;
+        width: 12px;
+        background: #fb5d5d;
+        height: 12px;
+        line-height: 0.6;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        right: -1px;
+    }
+}
+
+.page-title {
+    padding: 1em 0;
+    text-align: center;
+}
+
+.new-book-form > form {
+    width: 100%;
+}
