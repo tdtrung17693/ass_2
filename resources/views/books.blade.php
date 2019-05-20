@@ -2,6 +2,16 @@
 
 @section('main')
 
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 <div class="row">
     <div class="col-sm books-container">
         @foreach ($books as $book)
@@ -12,6 +22,18 @@
                 <div class="books__item-title">
                     <a href="#" class="books__item-title-link">{{$book->BookTitle}}</a>
                 </div>
+                @if (!is_null($authors[$book->ISBN]))
+                <div class="books__item-author">
+                    <?php $count = 0; ?>
+                    @foreach ($authors[$book->ISBN] as $id => $name)
+                        <a href="/authors/{{$id}}" class="books__item-author-link">{{$name}}</a>
+                        @if ($count != count($authors[$book->ISBN]) - 1)
+                        ,
+                        @endif
+                        <?php ++$count; ?>
+                    @endforeach
+                </div>
+                @endif
                 <div class="books__item-rating">
                     @if($book->AvgRating)
                         Ratings: {{ $book->AvgRating }} 
@@ -20,7 +42,8 @@
                     @endif
                 </div>
                 <div class="books__item-actions">
-                <a href="#" class="item-action" data-isbn="{{$book->ISBN}}"><i class="fas fa-trash-alt"></i></a>
+                    <a href="/books/edit/{{$book->ISBN}}" class="item-action action-edit"><i class="fas fa-pen-alt"></i></a>
+                    <a href="/books/delete/{{$book->ISBN}}" class="item-action action-trash"><i class="fas fa-trash-alt"></i></a>
                 </div>
             </div>
         @endforeach

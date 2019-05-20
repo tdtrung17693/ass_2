@@ -20,4 +20,14 @@ class MiscController extends Controller {
             return view('search-result', ['scope' => $scope, 'result' => $result, 'title' =>  "Search for book: {$request->input('q')}"]);
         }
     }
+
+    public function search_msg() {
+        return view('search-msg');
+    }
+    public function search_msg_endpoint(Request $request) {
+        $boxid = $request->input('boxid');
+        $userid = $request->input('userid');
+
+        return redirect("/messenger/{$boxid}/mb/{$userid}");
+    }
 }

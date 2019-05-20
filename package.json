@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-multiselect": "^0.9.13-1",
         "gijgo": "^1.9.13",
         "sweetalert2": "^8.11.1"
     }

@@ -2,7 +2,7 @@
 @extends('layout')
 
 @section('title')
-    - {{ $title }}
+    {{ $title }}
 @endsection
 @section('main')
     @if (count($result) === 0)
@@ -13,7 +13,7 @@
             <div class="col-sm author-result">
                 @foreach ($result as $author)
                     <div class="author-card">
-                        <h3><a href="/author/{{ $author->AuthorID }}">{{ $author->AuthorName }}</a></h3>
+                        <h3><a href="/authors/{{ $author->AuthorID }}">{{ $author->AuthorName }}</a></h3>
                         Number of book: <span class="author-row__book-count">{{ $author->BookCount }}</span>
                     </div>
                 @endforeach

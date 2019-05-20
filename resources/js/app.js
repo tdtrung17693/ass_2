@@ -5,8 +5,9 @@
  */
 
 require("./bootstrap");
+require("bootstrap-multiselect");
 require("gijgo");
-require("sweetalert2");
+const Swal = require("sweetalert2");
 
 window.Vue = require("vue");
 
@@ -34,8 +35,68 @@ window.Vue = require("vue");
 // });
 
 $(function() {
-    $("#book-pubdate").datepicker({
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": token
+        }
+    });
+
+    $("#book-pubdate, #dob").datepicker({
         uiLibrary: "bootstrap4",
         format: "yyyy-mm-dd"
+    });
+
+    $(".action-trash").click(function(ev) {
+        ev.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(result => {
+            if (result.value) {
+                window.location.replace(`${$(this).attr("href")}`);
+            }
+        });
+    });
+
+    $("#authors-select").multiselect();
+
+    $("#add-author-modal form").on("submit", function(ev) {
+        ev.preventDefault();
+
+        let name = this.querySelector("#author-name").value;
+        let desc = this.querySelector("#desc").value;
+
+        $.ajax({
+            type: "POST",
+
+            url: "/authors/new_from_book",
+
+            data: { "author-name": name, "author-desc": desc },
+
+            success: function(data) {
+                if (data.success) {
+                    $("#authors-select").append(
+                        `<option value=${data.author.AuthorID}>${
+                            data.author.AuthorName
+                        }</option>`
+                    );
+                    $("#authors-select").multiselect("rebuild");
+                    Swal.fire("Success", data.success, "success");
+                    $("#add-author-modal").modal("toggle");
+                } else if (data.error) {
+                    Swal.fire({
+                        type: "error",
+                        title: "Oops...",
+                        text: data.error
+                    });
+                }
+            }
+        });
     });
 });

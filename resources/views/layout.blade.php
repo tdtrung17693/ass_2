@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Laravel @hasSection('title') @yield('title') @endif</title>
+        <title>Book Society @hasSection('title') - @yield('title') @endif</title>
 
         <!-- Fonts -->
         <link
@@ -16,8 +16,11 @@
 
         <!-- Styles -->
         <style></style>
+        <script>
+            const token = "{{ csrf_token() }}";
+        </script>
     </head>
-    <body>
+    <body @hasSection('body-class') @yield('body-class') @endif>
         <nav
             id="book-society-navbar"
             class="navbar navbar-expand-lg navbar-light bg-light"
@@ -83,11 +86,18 @@
                         </div>
                     </div>
                 </form>
-                <a href="/books/new" class="add-book-action"><i class="fa fa-book"></i></a>
+                <a href="/books/new" class="navbar-action add-book-action" title="Add new book"><i class="fa fa-book"></i></a>
+                <a href="/communities/" class="navbar-action communities" title="Community"><i class="fa fa-users"></i></a>
+                <a href="/users/" class="navbar-action user-manager" title="User management"><i class="fa fa-address-book"></i></a>
+                <a href="/messenger" class="navbar-action msg-box" title="Messenger"><i class="fas fa-comment-alt"></i></a>
             </div>
         </nav>
 
+        @hasSection ('isFluid')
+        <div class="container-fluid">
+        @else
         <div class="container">
+        @endif
             @yield('main')
         </div>
 

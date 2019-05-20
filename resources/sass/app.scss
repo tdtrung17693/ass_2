@@ -6,7 +6,14 @@
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-multiselect/dist/css/bootstrap-multiselect.css";
 @import "~gijgo/css/gijgo.min.css";
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
 
 #book-society-navbar {
     background-color: #0db7a1 !important;
@@ -68,6 +75,7 @@
 .books__item {
     margin: 3em 1.2em;
     max-width: 200px;
+    position: relative;
 }
 
 .books__item-cover {
@@ -77,12 +85,19 @@
     margin-bottom: 1.5em;
 }
 
-a.books__item-cover:hover {
+.books__item:hover .books__item-cover {
     box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
 }
 
 .books__item-title {
     font: 20px/1.33 "Nunito";
+    z-index: 5;
+    position: relative;
+}
+
+.books__item-author {
+    position: relative;
+    z-index: 5;
 }
 
 .author-result {
@@ -104,7 +119,7 @@ a.books__item-cover:hover {
     box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
 }
 
-.add-book-action {
+.navbar-action {
     display: inline-block;
     margin-left: 10px;
     font-size: 1.1rem;
@@ -116,20 +131,25 @@ a.books__item-cover:hover {
     &:hover {
         color: #fff;
     }
+}
 
-    &:after {
-        content: "+";
-        display: inline-block;
-        border-radius: 50%;
-        width: 12px;
-        background: #fb5d5d;
-        height: 12px;
-        line-height: 0.6;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        right: -1px;
-    }
+.add-book-action:after {
+    content: "+";
+    display: inline-block;
+    border-radius: 50%;
+    width: 12px;
+    background: #fb5d5d;
+    height: 12px;
+    line-height: 0.6;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: -1px;
+}
+
+.user-item__avatar-sm {
+    width: 32px;
+    height: 32px;
 }
 
 .page-title {
@@ -137,6 +157,311 @@ a.books__item-cover:hover {
     text-align: center;
 }
 
-.new-book-form > form {
-    width: 100%;
+.new-user-form,
+.new-book-form,
+.new-comm-form {
+    > form {
+        width: 100%;
+    }
+}
+
+.books__item-actions {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 1;
+
+    .item-action {
+        margin: -50% 10px 0;
+    }
+}
+
+.books__item:hover .books__item-actions {
+    opacity: 1;
+}
+
+.user-list,
+.comm-list {
+    margin-top: 1em;
+    background-color: #fff;
+
+    td {
+        text-align: center;
+    }
+}
+
+.user-item__actions,
+.comm-item__actions {
+    .item-action {
+        display: inline-block;
+        margin-right: 5px;
+        box-shadow: none;
+    }
+}
+
+.item-action {
+    background-color: #c55555;
+    color: #8a3939;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 50%;
+    transition: color 0.5s;
+    box-shadow: 0 0 0 7px rgba(0, 0, 0, 0.5);
+
+    &.action-edit {
+        background-color: #558cc5;
+        color: #27546b;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.full-height {
+    overflow: hidden;
+
+    .container-fluid {
+        height: 100%;
+    }
+
+    .row {
+        height: 100%;
+    }
+
+    .col-sm-2.all-msg-boxes {
+        background-color: #373f51;
+    }
+
+    .box-item {
+        margin: 0 -15px;
+    }
+
+    .box-item a {
+        display: block;
+        padding: 10px;
+        background-color: #373f51;
+        color: #eee;
+        transition: background-color 0.6s;
+        border-bottom: 1px solid #222733;
+    }
+
+    .box-item a:hover {
+        text-decoration: none;
+        background-color: #309487;
+    }
+
+    .box-item.active-item a {
+        background-color: #309487;
+    }
+
+    .msg-pool {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: 100%;
+    }
+    .sender-avt-sm {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid #c5c5c5;
+    }
+
+    .message {
+        display: flex;
+        align-items: center;
+        margin-top: 1em;
+    }
+
+    .sender-name {
+        font-size: 13px;
+        margin-left: 1em;
+        color: #848484;
+        margin-bottom: 0.5em;
+    }
+
+    .content {
+        padding: 0.7em;
+        background-color: #1f7369;
+        margin-left: 1em;
+        border-radius: 5px;
+        color: #ffffff;
+    }
+
+    .message-content:before {
+        content: "";
+    }
+
+    .message.message-right {
+        margin-left: auto;
+    }
+
+    .message.message-right {
+        .sender-avatar,
+        .sender-name {
+            display: none;
+        }
+    }
+
+    .box-members__member {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        color: #fff;
+        background-color: #373f51;
+        transition: background-color 0.6s;
+
+        &:hover {
+            text-decoration: none;
+            background-color: #309487;
+        }
+
+        &.active-item {
+            background-color: #309487;
+        }
+    }
+
+    .box-members__member .sender-avatar {
+        margin-right: 1em;
+    }
+
+    .msg-box-info {
+        background-color: #373f51;
+
+        > span {
+            margin: 0 -15px;
+            padding: 0.5em 1em;
+            color: #ffff;
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            background-color: #242b3a;
+            text-align: center;
+        }
+    }
+
+    .box-members {
+        margin: 0 -15px;
+    }
+
+    .msg-box-title {
+        margin: 0 -15px;
+        padding: 0.5em 1em;
+        background-color: #d8dbe2;
+        color: #5a5a5a;
+    }
+
+    span.mb-name {
+        font-weight: 700;
+        color: #131313;
+    }
+}
+
+.user-avt {
+    max-width: 100%;
+}
+
+.section-title {
+    margin: 0.6em 0;
+}
+
+.row.user-profile {
+    margin-top: 2em;
+
+    .card {
+        padding: 1em;
+    }
+    h3.user-fullname {
+        margin-top: 0.5em;
+        font-size: 1.2rem;
+        margin-bottom: 0em;
+    }
+
+    span.user-username {
+        color: #7d7d7d;
+    }
+
+    .owned-books .section-title {
+        margin-top: 0;
+    }
+
+    .owned-books .book-cover {
+        max-width: 170px;
+        box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
+        transition: box-shadow 0.5s;
+    }
+
+    ul.book-list {
+        list-style: none;
+        display: flex;
+        overflow-x: auto;
+    }
+
+    li.book-list__item {
+        display: flex;
+        flex-direction: column;
+        margin: 0 1em;
+
+        &:hover .book-cover {
+            box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    span.book-title {
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.author-books .book-cover {
+    max-width: 170px;
+    box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
+    transition: box-shadow 0.5s;
+}
+.author-profile .author-name {
+    text-align: center;
+    margin: 1.2em 0;
+}
+ul.book-list {
+    list-style: none;
+    display: flex;
+    overflow-x: auto;
+}
+
+li.book-list__item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em;
+    max-width: 170px;
+
+    &:hover .book-cover {
+        box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
+    }
+}
+
+span.book-title {
+    display: block;
+    overflow: hidden;
+    font: 20px/1.33 "Nunito";
+    margin-top: 1em;
+}
+
+.message-content {
+    margin-left: 2.2em;
+}
+
+.sender-avatar + .message-content {
+    margin-left: 0;
 }
