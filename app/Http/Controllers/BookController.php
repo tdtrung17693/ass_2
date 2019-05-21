@@ -10,7 +10,8 @@ class BookController extends Controller
     public function index() {
         $books = DB::table('BOOK')->leftJoin('BOOKCOVER', 'BOOKCOVER.ISBN', '=', 'BOOK.ISBN')
                                   ->leftJoin('PHOTO', 'BOOKCOVER.MultimediaID', '=', 'PHOTO.MultimediaID')
-                                  ->select('BOOK.ISBN', 'BOOK.BookTitle', 'BOOK.BookDescription', 'BOOK.PublicationDate', 'BOOK.AverageRating AS AvgRating', 'PHOTO.Url AS BookCover')
+                                  ->select('BOOK.ISBN', 'BOOK.BookTitle', 'BOOK.PublicationDate', 'BOOK.AverageRating AS AvgRating', 'PHOTO.Url AS BookCover')
+                                  ->orderBy('BOOK.PublicationDate')
                                   ->get();
         
                         //           select [BOOK].[ISBN]
@@ -37,8 +38,25 @@ class BookController extends Controller
         return view('books', ['books' => $books, 'authors' => $bookMap]);
     }
 
-    public function view() {
+    public function view($id) {
+        $book = DB::table('BOOK')->leftJoin('BOOKCOVER', 'BOOKCOVER.ISBN', '=', 'BOOK.ISBN')
+                                  ->leftJoin('PHOTO', 'BOOKCOVER.MultimediaID', '=', 'PHOTO.MultimediaID')
+                                  ->select('BOOK.ISBN', 'BOOK.BookTitle', 'BOOK.BookDescription', 'BOOK.PublicationDate', 'BOOK.AverageRating AS AvgRating', 'PHOTO.Url AS BookCover')
+                                  ->where('BOOK.ISBN', '=', $id)
+                                  ->first();
 
+        $authors = DB::table('AUTHOR')
+                                  ->leftJoin('AUTHOR_WRITE_BOOK', 'AUTHOR_WRITE_BOOK.AuthorID', '=', 'AUTHOR.AuthorID')
+                                  ->leftJoin('BOOK', 'BOOK.ISBN', 'AUTHOR_WRITE_BOOK.ISBN')
+                                  ->select('AUTHOR.AuthorName', 'AUTHOR.AuthorID')
+                                  ->where('BOOK.ISBN', '=', $id)
+                                  ->get();
+
+        $reviews = DB::table('REVIEW')->join('NETWORK_USERS', 'REVIEW.UserID', '=', 'NETWORK_USERS.UserID')
+                                      ->select('NETWORK_USERS.UserID', 'NETWORK_USERS.Username', 'REVIEW.PostContent', 'REVIEW.BookRating')
+                                      ->where('REVIEW.ISBN', '=', $id)->get();
+
+        return view('book-view', ['Book'=>$book, 'Authors' => $authors, 'Reviews' => $reviews]);
     }
 
     public function create() {

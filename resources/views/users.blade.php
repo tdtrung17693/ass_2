@@ -31,7 +31,7 @@
                     </td>
                     <td class="user-item__actions">
                         <a href="/users/edit/{{$user->UserID}}" class="item-action action-edit" ><i class="fas fa-pen-alt"></i></a>
-                        <a href="/users/delete/{{$user->UserID}}" class="item-action action-trash"><i class="fas fa-trash-alt"></i></a>
+                        <a href="/users/delete/{{$user->UserID}}/{{$user->Username}}" class="item-action action-trash"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </li>
             @endforeach

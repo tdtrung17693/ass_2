@@ -10735,28 +10735,32 @@ html {
 .books-container {
   display: flex;
   flex-wrap: wrap;
-}
-
-.books__item-cover img {
-  max-width: 230px;
-  max-height: 280px;
+  background-color: #fff;
+  justify-content: center;
 }
 
 .books__item {
   margin: 3em 1.2em;
-  max-width: 200px;
+  width: 21%;
   position: relative;
 }
 
 .books__item-cover {
   display: inline-block;
-  box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
-  transition: box-shadow 0.5s;
   margin-bottom: 1.5em;
+  width: 100%;
+  text-align: center;
 }
 
-.books__item:hover .books__item-cover {
-  box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.5);
+.books__item-cover img {
+  max-width: 100%;
+  max-height: 280px;
+  box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.5s;
+}
+
+.books__item:hover .books__item-cover img {
+  box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
 .books__item-title {
@@ -11098,6 +11102,10 @@ html {
   transition: box-shadow 0.5s;
 }
 
+.author-profile .book-count {
+  font-size: 1rem;
+}
+
 .author-profile .author-name {
   text-align: center;
   margin: 1.2em 0;
@@ -11133,5 +11141,65 @@ span.book-title {
 
 .sender-avatar + .message-content {
   margin-left: 0;
+}
+
+.no-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.no-result span {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 1.2em;
+}
+
+.no-result img {
+  max-width: 400px;
+}
+
+.book-container {
+  padding: 2em 0 2em 0;
+  background-color: #fff;
+}
+
+.book-container ul.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.book-container p.review-content {
+  font-size: 1.2rem;
+  padding: 0.5em;
+  margin: 0;
+}
+
+.book-container li.review {
+  padding: 0.2em 1em 0 1em;
+  background-color: #eee;
+  padding-bottom: 0;
+}
+
+.book-container .book-cover img {
+  max-width: 100%;
+  box-shadow: 0 9px 16px 0 rgba(0, 0, 0, 0.29);
+}
+
+.book-container .book-desc p {
+  font-size: 1.2rem;
+  margin-top: 1em;
+}
+
+.book-container .book-authors {
+  margin-top: -0.7em;
+  color: #868686;
+}
+
+.book-container .book-author {
+  font-weight: 700;
 }
 

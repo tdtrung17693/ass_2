@@ -11,6 +11,7 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,600"
             rel="stylesheet"
         />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
         <link rel="stylesheet" href="/css/all.min.css">
         <link href="/css/app.css" rel="stylesheet" />
 
@@ -61,6 +62,7 @@
                             placeholder="Search"
                             aria-label="Search query"
                             aria-describedby="basic-addon2"
+                            autocomplete="off"
                         />
                         <div class="input-group-append">
                             <button

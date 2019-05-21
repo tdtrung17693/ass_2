@@ -6,7 +6,10 @@
 @endsection
 @section('main')
     @if (count($result) === 0)
-        NO RESULT
+        <div class="no-result">
+            <img src="/img/noresult.png" alt="No result">
+            <span>NO SEARCH RESULTS</span>
+        </div>
     @else
         <div class="row">
             @if ($scope === 'author')

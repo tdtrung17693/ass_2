@@ -86,6 +86,7 @@ $(function() {
                             data.author.AuthorName
                         }</option>`
                     );
+                    for (let a = 0; a < 1000; ++a);
                     $("#authors-select").multiselect("rebuild");
                     Swal.fire("Success", data.success, "success");
                     $("#add-author-modal").modal("toggle");

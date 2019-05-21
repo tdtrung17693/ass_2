@@ -2,25 +2,31 @@
 
 @section('main')
 
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 <div class="row">
     <div class="col-sm books-container">
         @foreach ($books as $book)
             <div class="books__item">
-                <a href="#" class="books__item-cover">
+                <a href="/books/{{$book->ISBN}}" class="books__item-cover">
                     <img src="{{$book->BookCover}}" alt="">
                 </a>
                 <div class="books__item-title">
-                    <a href="#" class="books__item-title-link">{{$book->BookTitle}}</a>
+                    <a href="/books/{{$book->ISBN}}" class="books__item-title-link">{{$book->BookTitle}}</a>
                 </div>
                 @if (!is_null($authors[$book->ISBN]))
                 <div class="books__item-author">
@@ -36,7 +42,7 @@
                 @endif
                 <div class="books__item-rating">
                     @if($book->AvgRating)
-                        Ratings: {{ $book->AvgRating }} 
+                        Rating: {{ $book->AvgRating }} 
                     @else 
                         No ratings
                     @endif

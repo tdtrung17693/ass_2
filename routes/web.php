@@ -41,7 +41,7 @@ Route::get('/users/edit/{UserID}', 'UserController@edit');
 Route::get('/users', 'UserController@index');
 Route::get('/users/{UserID}', 'UserController@view');
 Route::put('/users/{UserID}', 'UserController@update');
-Route::get('/users/delete/{UserID}', 'UserController@destroy');
+Route::get('/users/delete/{UserID}/{UName}', 'UserController@destroy');
 
 // MESSENGER
 Route::get('/messenger', 'MessageController@index');

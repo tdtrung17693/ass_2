@@ -78,7 +78,7 @@ class UserController extends Controller
         } else if ($rowCount == -2) {
             return back()->withInput()->with('error', 'Role does not existed.');
         } else if ($rowCount == -3) {
-            return back()->withInput()->with('error', 'Length of Last name, First name and Username must be greater than 20 characters');
+            return back()->withInput()->with('error', 'Length of Last name, First name and Username must be less than 20 characters');
         }
 
         return back()->with('success', "User '{$username}' was successfully added.");
@@ -138,15 +138,15 @@ class UserController extends Controller
         return back()->with('success', 'The user was successfully updated');
     }
 
-    public function destroy(Request $request, $UserID) {
+    public function destroy(Request $request, $UserID, $UName) {
         if (!DB::table('NETWORK_USERS')->where('UserID', $UserID)->exists()) {
             return abort(404);
         }
 
         if(DB::table('NETWORK_USERS')->where('UserID', $UserID)->delete() == 0) {
-            return redirect('/')->with('error', 'The user was not successfully deleted');
+            return redirect('/')->with('error', "The user {$UName} was successfully deleted");
         }
 
-        return back()->with('success', 'The user was successfully deleted');
+        return back()->with('success', "The user {$UName} was successfully deleted");
     }
 } 
